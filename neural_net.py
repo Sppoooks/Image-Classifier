@@ -15,22 +15,27 @@ img_flattened = img.flatten()
 # Weights
 weights = np.array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
 
-# Weighted sum
-weighted_sum = sum(img_flattened*weights)
+for i in range(10):
+    print("Round:", i + 1)
 
-# Activation function
-result = sigmoid(weighted_sum)
+    # Weighted sum
+    weighted_sum = sum(img_flattened*weights)
 
-# Output
-if result < 0.5:
-    print("Vertical")
-elif result >= 0.5:
-    print("Horizontal")
+    # Activation function
+    result = sigmoid(weighted_sum)
 
-# Error
-error = result - 0
+    # Output
+    if result < 0.5:
+        print("Image is Vertical")
+    elif result > 0.5:
+        print("Image is Horizontal")
 
-# Error correction
-adjustment = error*sigmoid_der(result)
-weights -= np.dot(img_flattened, adjustment)
-print(weights)
+    # Error
+    error = result - 0
+    print("Error: ", error)
+
+    # Error correction
+    adjustment = error*sigmoid_der(result)
+    weights -= img_flattened*adjustment
+    print("Weights: ", weights)
+    print()
